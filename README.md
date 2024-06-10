@@ -33,3 +33,4 @@ export default {
 
 - Add corepack and specify package manager
 - use https://developer.mozilla.org/en-US/docs/Web/API/URL
+- fix module jest test
