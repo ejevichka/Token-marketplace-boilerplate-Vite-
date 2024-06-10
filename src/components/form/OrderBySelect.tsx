@@ -18,7 +18,7 @@ export const SortSelect: React.FC<SortSelectProps> = ({ filter, setFilter }) => 
             value={filter.orderBy}
             onChange={handleSortChange}
             data-testid="sort-change"
-            className="block w-full sm:inline-block sm:w-auto px-3 m-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+            className="block w-full sm:inline-block sm:w-auto px-3 m-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 appearance-none sm:text-sm">
             <option value="relevant">Relevance</option>
             <option value="latest">Latest</option>
             <option value="editorial">Editorial</option>
