@@ -46,12 +46,11 @@ const unsplashSearchResponse = unsplashResponseSchema(unsplashImageSchema);
 
 export class UnsplashApi {
   private totalPages: number = 0;
-  constructor() {}
 
   search = async (filter: UnsplashSearchFilter): Promise<UnsplashImage[]> => {
     if (!filter.query) return [];
     const unsplash = getUnsplashApi(); 
-    const response = await unsplash.search.getPhotos({ query: filter.query, page: filter.page, perPage: 5, orderBy: filter.orderBy, color: filter.color });
+    const response = await unsplash.search.getPhotos({ query: filter.query, page: filter.page, perPage: 8, orderBy: filter.orderBy, color: filter.color });
     const parsed = unsplashSearchResponse.parse(response.response);
     this.totalPages = parsed.total_pages;
     return parsed.results

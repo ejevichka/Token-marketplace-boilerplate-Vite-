@@ -1,5 +1,5 @@
 {
-  "name": "my-vite-app",
+  "name": "NAT",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -8,7 +8,8 @@
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "test:e2e": "playwright test"
+    "test": "jest",
+    "playwright:test": "npx playwright test"
   },
   "dependencies": {
     "@custom-react-hooks/use-element-size": "^1.4.19",
@@ -22,21 +23,27 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.44.1",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.14.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
     "@types/react-virtualized": "^9.21.30",
-    "@typescript-eslint/eslint-plugin": "^7.2.0",
-    "@typescript-eslint/parser": "^7.2.0",
+    "@typescript-eslint/eslint-plugin": "^7.12.0",
+    "@typescript-eslint/parser": "^7.12.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "esbuild-plugin-react-virtualized": "^1.0.4",
     "eslint": "^8.57.0",
+    "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
+    "jest": "^29.7.0",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.4.4",
+    "ts-jest": "^29.1.4",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2",
     "vite": "^5.2.0"
   }

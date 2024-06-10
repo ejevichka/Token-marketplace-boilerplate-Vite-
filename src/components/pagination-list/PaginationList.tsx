@@ -1,7 +1,7 @@
 import type { CellRenderer, MasonryCellProps } from "react-virtualized/dist/es/Masonry";
 import { Masonry } from "react-virtualized/dist/es/Masonry";
 import { UnsplashImage } from "../../domains/unsplash";
-import { CellMeasurer, CellMeasurerCache, createMasonryCellPositioner, AutoSizer } from "react-virtualized";
+import { CellMeasurer, CellMeasurerCache, createMasonryCellPositioner } from "react-virtualized";
 import { useMemo, useEffect } from "react";
 import useElementSize from "@custom-react-hooks/use-element-size";
 
@@ -14,23 +14,25 @@ const cellMeasurerCache = new CellMeasurerCache({
 export const PaginatedImageList: React.FC<{ images: UnsplashImage[]; currentPage: number }> = ({ images }) => {
   const [setRef, size] = useElementSize();
 
-  const columnWidth = Math.floor(size.width / 3) - 10; // Dynamic column width
+  const columnWidth = Math.floor(size.width / 4) - 10; // Dynamic column width with set of 4 column hardcoded (( 
   const columnCount = Math.max(Math.floor(size.width / (columnWidth + 10)), 1); // Column count based on dynamic width
 
-  const cellPositionerConfig = {
-    cellMeasurerCache,
-    columnCount,
-    columnWidth,
-    spacer: 10,
-  };
+  const cellPositionerConfig = useMemo(() => {
+    return {
+        cellMeasurerCache,
+        columnCount,
+        columnWidth,
+        spacer: 2,
+    };
+}, [columnCount, columnWidth]);
 
-  const cellPositioner = useMemo(() => createMasonryCellPositioner(cellPositionerConfig), [columnCount, columnWidth]);
+  const cellPositioner = useMemo(() => createMasonryCellPositioner(cellPositionerConfig), [cellPositionerConfig]);
 
   // Reset caches when images change
   useEffect(() => {
     cellMeasurerCache.clearAll();
     cellPositioner.reset(cellPositionerConfig);
-  }, [images]);
+  }, [images, cellPositioner, cellPositionerConfig]);
 
   const renderer = useMemo(() => {
     return createRenderer(images, (image) => {
@@ -41,7 +43,8 @@ export const PaginatedImageList: React.FC<{ images: UnsplashImage[]; currentPage
           <img
             title={image.description || ""}
             src={image.urls.small}
-            style={{ width: `${columnWidth}px`, height: `${height}px`, display: 'block' }} // Set width and height dynamically
+            alt={image.description || ""}
+            style={{ width: `${columnWidth}px`, height: `${height}px`, objectFit: 'cover', display: 'block' }} // Set width and height dynamically
           />
         </picture>
       );
@@ -49,7 +52,7 @@ export const PaginatedImageList: React.FC<{ images: UnsplashImage[]; currentPage
   }, [images, columnWidth]);
 
   return (
-    <div ref={setRef} style={{ width: "100%" }}>
+    <div ref={setRef} data-testid="paginated-list" className="w-full h-full">
       <Masonry
         cellPositioner={cellPositioner}
         cellRenderer={renderer}
@@ -71,13 +74,9 @@ function createRenderer<T>(
     const datum = data[props.index];
 
     return (
-      <AutoSizer>
-        {() => (
-          <CellMeasurer cache={cellMeasurerCache} index={props.index} key={props.key} parent={props.parent}>
-            <div style={props.style}>{renderElement(datum, props)}</div>
-          </CellMeasurer>
-        )}
-      </AutoSizer>
+      <CellMeasurer cache={cellMeasurerCache} index={props.index} key={props.key} parent={props.parent}>
+        <div style={props.style}>{renderElement(datum, props)}</div>
+      </CellMeasurer>
     );
   };
 }

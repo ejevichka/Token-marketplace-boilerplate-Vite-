@@ -6,7 +6,7 @@ import { UnsplashSearchFilter, unsplashApi } from "../../domains/unsplash";
 import { extractErrorMessage } from "../../domains/utils";
 import { ColorSelect } from "../form/ColorSelect";
 import { SortSelect } from "../form/OrderBySelect";
-import {Pagination} from "../form/Pagination"
+import {Pagination} from "../pagination/Pagination"
 
 
 export const Search: React.FC = () => {
@@ -39,13 +39,14 @@ export const Search: React.FC = () => {
           value={searchRaw}
           onChange={(x) => setSearchRaw(x.currentTarget.value)}
           placeholder="Search Unsplash..."
-          className="x-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          data-testid="search-input"
+          className="block w-full sm:inline-block sm:w-auto px-3 m-2 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
         />
         <ColorSelect filter={filter} setFilter={setFilter} />
         <SortSelect filter={filter} setFilter={setFilter} />
        
       </form>
-      {response.isLoading && <span children="Loading.." />}
+      {response.isLoading && <span children="Loading.." data-testid="loading" />}
       {response.error && <span children={extractErrorMessage(response.error)} />}
       {response.data && (
         <div>
@@ -55,7 +56,7 @@ export const Search: React.FC = () => {
             <Pagination  currentPage={currentPage} setCurrentPage={setCurrentPage} setFilter={setFilter} totalPages={totalPages} />
            </>
           ) : (
-            <span children="No results here :C" />
+            <span data-testid="no-results" children="No results here :C" />
           )}
         </div>
       )}

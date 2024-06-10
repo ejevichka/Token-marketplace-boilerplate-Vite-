@@ -18,7 +18,13 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+
+    "types": ["jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"] // Adjust this if you have path aliases in Vite
+    }
   },
   "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]

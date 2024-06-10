@@ -9,6 +9,8 @@ type SortSelectProps = {
 };
 
 export const Pagination: React.FC<SortSelectProps> = ({ currentPage, setCurrentPage, setFilter, totalPages }) => {
+  console.log("currentPage", currentPage)
+  console.log("totalPages", totalPages)
   const handlePrev = useCallback(() => {
     if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
@@ -24,13 +26,21 @@ export const Pagination: React.FC<SortSelectProps> = ({ currentPage, setCurrentP
   }, [currentPage, totalPages, setCurrentPage, setFilter]);
 
   return (
-    <div style={{ textAlign: 'center', margin: '20px 0' }}>
-      <button onClick={handlePrev} disabled={currentPage === 1}>
-        Prev
-      </button>
-      <button onClick={handleNext} disabled={currentPage === totalPages}>
-        Next
-      </button>
-    </div>
+    <div className="text-center my-5">
+    <button
+      onClick={handlePrev}
+      disabled={currentPage === 1}
+      className="px-4 py-2 mr-2 bg-black-500 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      Prev
+    </button>
+    <button
+      onClick={handleNext}
+      disabled={currentPage === totalPages}
+      className="px-4 py-2 bg-black-500 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed"
+    >
+      Next
+    </button>
+  </div>
   );
 };
