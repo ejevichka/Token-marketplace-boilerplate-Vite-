@@ -1,7 +1,7 @@
 # React + TypeScript + Vite
 
-# Search for images from Unsplash
-The provided code defines a Search component that allows users to search for images from Unsplash based on specific filters, including query, color, and sorting. Here is an overview of its functionality:
+# Search for images from Unsplash utilising Masonry view (react-virtualized)
+Search component that allows users to search for images from Unsplash based on specific filters, including query, color, and sorting. Here is an overview of its functionality:
 
 # Key Features:
 Search Input Handling:
@@ -46,6 +46,7 @@ The query is debounced to prevent sending too many API requests.
 The component triggers the Unsplash API search with the debounced query, along with additional filters for color and sorting.
 The search results are displayed in a paginated list, with a loading indicator shown while data is being fetched.
 The user can change the page or adjust filters, which will update the search results accordingly.
+Results are shown in Masonry view (using react-virtualized/dist/es/Masonry" for performance oprimisation)
 
 # Dependencies:
 useSWR: Used for data fetching and caching.
